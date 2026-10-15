@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-navy-950 text-slate-100;
+  }
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1527;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #223561;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* React Flow Canvas custom dark styling */
+.react-flow__attribution {
+  display: none !important;
+}
+
+.react-flow__controls-button {
+  background: #111c34 !important;
+  border-bottom: 1px solid #1e293b !important;
+  color: #cbd5e1 !important;
+  fill: #cbd5e1 !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #1e293b !important;
+}
+
+.react-flow__controls-button svg {
+  fill: #cbd5e1 !important;
+}
