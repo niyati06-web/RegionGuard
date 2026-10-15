@@ -216,3 +216,5 @@ Expected output:
 | Port 4000 or 5173 already in use | Previous process holding the port | Change `PORT` in `.env` or terminate the lingering process |
 | Test writes rejected | Attempted write to standby region or stale epoch | Only the active lease holder can commit writes |
 | Missing node_modules | Dependencies not installed | Run `npm run install:all` |
+#   R e g i o n G u a r d  
+ 
