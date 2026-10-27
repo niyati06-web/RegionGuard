@@ -30,3 +30,7 @@ Thumbs.db
 
 # Vitest
 .vitest/
+
+# Unrelated folders
+AttendX/
+

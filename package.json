@@ -8,10 +8,12 @@
     "dev": "concurrently -k -n \"SERVER,CLIENT\" -c \"blue,magenta\" \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
-    "build": "npm run build --prefix server && npm run build --prefix client",
+    "build": "npm install --prefix server && npm run build --prefix server",
+    "build:all": "npm install --prefix server && npm run build --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "node server/dist/index.js",
     "test": "npm run test --prefix server"
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^9.1.0"
   }
 }
