@@ -15,13 +15,20 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 4000;
 const allowedOrigins = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
-  : ['http://localhost:5173', 'http://127.0.0.1:5173'];
+  : ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://region-guard.vercel.app'];
+
+const isOriginAllowed = (origin: string | undefined): boolean => {
+  if (!origin) return true;
+  if (process.env.NODE_ENV !== 'production') return true;
+  if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) return true;
+  if (origin.endsWith('.vercel.app')) return true;
+  return false;
+};
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, server-to-server)
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      if (isOriginAllowed(origin)) {
         return callback(null, true);
       }
       return callback(new Error('CORS policy: Not allowed by Access-Control-Allow-Origin'));
@@ -38,7 +45,12 @@ const engine = new SimulationEngine(Number(process.env.SIMULATION_TICK_MS) || 10
 // Set up Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isOriginAllowed(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('CORS policy: Not allowed by Socket.IO'));
+    },
     methods: ['GET', 'POST'],
     credentials: true,
   },

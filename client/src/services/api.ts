@@ -1,6 +1,12 @@
 import { ScenarioDefinition, SimulationEvent, SimulationState } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
+const DEFAULT_BACKEND_URL = 'https://regionguard-backend.onrender.com';
+
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : import.meta.env.DEV
+  ? '/api'
+  : `${DEFAULT_BACKEND_URL}/api`;
 
 export async function fetchHealth() {
   const res = await fetch(`${API_BASE}/health`);
